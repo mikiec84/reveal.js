@@ -10,7 +10,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 
   <title>Scala 2.12 &amp; Beyond</title>
 
-  <meta name="description" content="Presented in Chicago, April 20-21 2017">
+  <meta name="description" content="Presented in Copenhagen, June 2nd 2017">
   <meta name="author" content="Adriaan Moors">
 
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -45,7 +45,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 
 <div class='footer'><img style="height:1.5em; opacity: 0.80" src="images/lightbend-reverse.svg" title="Lightbend" alt="Lightbend"/></div>
 
-<div class='logo'><img style="height:120px" src="images/scaladays_chicago_logo.png" title="Scaladays" alt="Scaladays"/></div>
+<div class='logo'><img style="height:120px" src="images/scaladays_copenhagen_logo.png" title="Scaladays" alt="Scaladays"/></div>
 
 <div class='footer-right'>#scaladays</div>
 
@@ -126,7 +126,12 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 </script></section>
   
 <section>
-<!-- <img src="images/scala-lib-downloads.png" title="Scala Downloads" style="width: 90%;" alt="Scala Downloads"/> -->
+<!-- <img src="images/scala-lib-downloads.png" title="Scala Downloads" style="width: 90%;" alt="Scala Downloads"/>
+  for i in 0 1 2 3 4 5 6; do st_stats 2.10.$i 201705 1; done
+  for i in 0 1 2 3 4 5 6 7 8 9 10 11; do st_stats 2.11.$i 201705 1 ; done
+  for i in 0 1 2; do st_stats 2.12.$i 201705 1 ; done
+
+  -->
 <iframe  width="1200" height="720" seamless frameborder="0"  src="https://docs.google.com/spreadsheets/d/1_9FriofYW4TFXxaxqj5DzkUdXlgpvZfKyuXU9VFsKB4/pubchart?oid=339248402&amp;format=interactive"></iframe> 
 </section>
 
@@ -188,6 +193,17 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 ## Compiling to JVM 8!
 ### Trait = interface + default method
 ### Function = SAM instance via INDY
+
+
+</script></section>  <section data-markdown><script type="text/template">
+
+# Smaller jars!
+
+jar | 2.11.11 | 2.12.2
+--------------------|-------|-------
+scala-compiler | 15M | 9.2M
+scala-library | 5.5M | 5.0M
+scala-reflect | 4.4M  |  3.4M
 
 
 </script></section><section data-markdown><script type="text/template">
@@ -299,7 +315,6 @@ def map[R](mapper: T => R): Stream[R]
 
 
 </script></section>
- <!-- TODO  mention smaller jar size -->
  <section data-markdown><script type="text/template">
 # INDY-λ [#4463](https://github.com/scala/scala/pull/4463)
  1. scalac λ bytecode mimics javac's
@@ -308,12 +323,12 @@ def map[R](mapper: T => R): Stream[R]
 
 
  </script></section>
- <!-- TODO: include example from https://github.com/scala/scala-dev/issues/195 -->
  <section data-markdown><script type="text/template">
- ## Gotcha
+ ## Gotcha ([scala/scala-dev#195](https://github.com/scala/scala-dev/issues/195))
    - Lambda body in method of enclosing class
    - Before, in its own anonymous class
    - Can result in deadlock, accidental outer capture
+</script></section><section data-markdown><script type="text/template">
 
 </script></section><section data-markdown><script type="text/template">
 # Single Abstract Method
@@ -588,7 +603,7 @@ coll.to(Map) // not possible before
 
 <section class="nologo">
   
-<img src="images/scaladays_chicago_logo_big.png" title="Scala Days" style="width: 50%;" alt="Scala Days"/>
+<img src="images/scaladays_copenhagen_logo_big.png" title="Scala Days" style="width: 50%;" alt="Scala Days"/>
 </section>
 
 </section>
