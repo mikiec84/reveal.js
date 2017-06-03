@@ -318,7 +318,6 @@ def map[R](mapper: T => R): Stream[R]
    - Lambda body in method of enclosing class
    - Before, in its own anonymous class
    - Can result in deadlock, accidental outer capture
-</script></section><section data-markdown><script type="text/template">
 
 </script></section><section data-markdown><script type="text/template">
 # Single Abstract Method
@@ -425,9 +424,17 @@ The `Function2` overload is applicable to:
 ## Simplify implementation & usage
 #### Minimize impact on most users
 #### Inheritance hierarchy *will* change
+#### See [blog](http://www.scala-lang.org/blog/2017/02/28/collections-rework.html)
 
 
-</script></section><section data-markdown><script type="text/template">
+</script></section>
+<!--  TODO: Seth says:
+1) The 2.13 collections actually do have a banner user-facing feature, namely that views will actually work.
+I think this is a big step forward for the collections and is worth mentioning prominently whenever the
+collections improvements are presented. (Note that there is a whole Views section in
+http://www.scala-lang.org/blog/2017/02/28/collections-rework.html.)
+-->
+<section data-markdown><script type="text/template">
 ## Example
 
 ```scala
