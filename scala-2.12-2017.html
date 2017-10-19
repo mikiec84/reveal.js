@@ -10,7 +10,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 
   <title>Scala 2.12 &amp; Beyond</title>
 
-  <meta name="description" content="Presented in Copenhagen, June 2nd 2017">
+  <meta name="description" content="Presented in Austin, Oct 19th 2017">
   <meta name="author" content="Adriaan Moors">
 
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -19,7 +19,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
   <link rel="stylesheet" href="css/reveal.css">
-  <link rel="stylesheet" href="css/theme/scaladays.css" id="theme">
+  <link rel="stylesheet" href="css/theme/typesafe.css" id="theme">
 
   <!-- Code syntax highlighting -->
   <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,14 +43,11 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 
 <div class="reveal">
 
-<div class='footer'><img style="height:1.5em; opacity: 0.80" src="images/lightbend-reverse.svg" title="Lightbend" alt="Lightbend"/></div>
-
-<div class='logo'><img style="height:120px" src="images/scaladays_copenhagen_logo.png" title="Scaladays" alt="Scaladays"/></div>
-
-<div class='footer-right'>#scaladays</div>
-
+<div class='footer'><img style="height:1.5em; opacity: 0.66" src="images/lightbend-color-reverse.svg" title="Lightbend" alt="Lightbend"/></div>
 
 <div class="slides">
+
+<section><img src="images/lightbend-color-reverse.svg" title="Lightbend" style="width: 66%;" alt="Lightbend"/></section>
 
 <section>
 <h2>Scala 2.12 &amp; Beyond</h2>
@@ -59,16 +56,6 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 <h5 class="orange">Scala Team Lead</h5>
 <h5 style="opacity: 0.75">https://github.com/adriaanm/talks/</h5>
 </section>
-
-<section>
-<img src="images/rate_app_1.png" title="Lightbend" style="width: 66%;" alt="Lightbend"/>
-</section>
-
-
-<section>
-<img src="images/lightbend-reverse.svg" title="Lightbend" style="width: 66%;" alt="Lightbend"/>
-</section>
-
 
 
 
@@ -114,7 +101,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 ## Community Contributions (⅓)
 ### Massive Thank You!
 
-<small>[scala/scala/graphs/contributors?from=2014-11-01&to=2017-06-02&type=c](https://github.com/scala/scala/graphs/contributors?from=2014-11-01&to=2017-06-02&type=c)</small>
+<small>[scala/scala/graphs/contributors?from=2014-11-01&to=2017-10-19&type=c](https://github.com/scala/scala/graphs/contributors?from=2014-11-01&to=2017-10-19&type=c)</small>
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -128,8 +115,8 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 </script></section><section data-markdown><script type="text/template">
 ## scala/community-builds
 ### projects built nightly
-  - 2.11.x, April 2014: <span class="red">29</span>; now: <span class="red">51</span>
-  - 2.12.x, April 2016: <span class="red">44</span>; now: <span class="red">104</span>
+  - 2.11.x, April 2014: <span class="red">29</span>; now: <span class="red">48</span>
+  - 2.12.x, April 2016: <span class="red">44</span>; now: <span class="red">120</span>
 
 
 </script></section><section data-markdown><script type="text/template">
@@ -153,8 +140,15 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 
 </script></section><section data-markdown><script type="text/template">
 ### 2017
-  - 🎊 2.11.11, 2.12.2, 2.13.0-M1 🎉
+  - 2.11.11, 2.12.2
+  - 2.13.0-M1
+  - 2.12.3, 2.13.0-M2
+  - 2.12.4, 2.13.0-M3 (jdk9 support: 2.11.12, 2.10.7)
 
+</script></section><section data-markdown><script type="text/template">
+### 2017
+  - 2.12.5, 2.13.0-M4
+  - 2.13.0
 
 </script></section>
   
@@ -189,9 +183,9 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 
 # Smaller jars!
 
-jar | 2.11.11 | 2.12.2
+jar | 2.11.11 | 2.12.4
 --------------------|-------|-------
-scala-compiler | 15M | 9.2M
+scala-compiler | 15M | 9.3M
 scala-library | 5.5M | 5.0M
 scala-reflect | 4.4M  |  3.4M
 
@@ -483,8 +477,10 @@ coll.to(Map) // not possible before
 
 <section data-markdown><script type="text/template">
 # Compiler Performance
-25% improvement from 2.10.3 to 2.12.1
-<a href="https://goo.gl/AViRa2"><img src="images/comp_perf.png" style="width: 100%;" /></a>
+Scala core compile time cut by 25% in last 6 months:
+<a href="https://scala-ci.typesafe.com/grafana/dashboard/db/scala-benchmark?panelId=4&fullscreen&var-branch=2.12.x&var-source=scala&var-bench=HotScalacBenchmark.compile&var-host=scalabench@scalabench@&from=1480673096264&to=1508429045498">
+  <img src="images/bench-2.12-oct-2017.png" style="width: 100%;" />
+</a>
 
 
 </script></section>
@@ -499,7 +495,7 @@ coll.to(Map) // not possible before
   - nicer editing
   - cleaner wrapping
   - improve embeddability
-  - see: Ammonite & Dotty's repl
+  - parity with Ammonite
 
 </script></section><section data-markdown><script type="text/template">
 ### Nicer errors
@@ -521,7 +517,7 @@ coll.to(Map) // not possible before
     - procedure syntax
     - add sigs for implicits (& non-private members?)
     - collections
-  - also, style *checking*
+  - also, style *checking* / linting
   - (built on scala.meta's semantic api)
 
 </script></section>
@@ -541,10 +537,9 @@ coll.to(Map) // not possible before
 
 # Scala 2.14
 ## Closer to Dotty
-### scala.meta macros
+### new macros
 ### TASTY
-### Share post-typer transformations
-### & type operations
+### Converge pipeline back-to-front
 
 </script></section>
 <!-- 
@@ -593,15 +588,6 @@ coll.to(Map) // not possible before
 ## Questions!
 <span style="opacity:0.75">[@adriaanm](http://twitter.com/adriaanm)</span>
 </script></section>
-
-<section>
-<img src="images/rate_app_2.png" title="Rate my talk!" style="width: 80%;" alt="Rate my talk!"/>
-</section>
-
-<section class="nologo">
-  
-<img src="images/scaladays_copenhagen_logo_big.png" title="Scala Days" style="width: 50%;" alt="Scala Days"/>
-</section>
 
 </section>
 
