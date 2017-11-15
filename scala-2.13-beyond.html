@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+
+<!-- print with:
+phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/scala-2.12-2017.html?print-pdf" scala-2.12.pdf 1200x800
+-->
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Scala 2.13 &amp; Beyond</title>
+
+  <meta name="description" content="Presented at Scala by the Bay, Nov 17th 2017">
+  <meta name="author" content="Adriaan Moors">
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/typesafe.css" id="theme">
+
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+
+
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<div class='footer'><img style="height:1.5em; opacity: 0.66" src="images/lightbend-color-reverse.svg" title="Lightbend" alt="Lightbend"/></div>
+
+<div class="slides">
+
+<section><img src="images/lightbend-color-reverse.svg" title="Lightbend" style="width: 66%;" alt="Lightbend"/></section>
+
+<section>
+<h2>Scala 2.13 &amp; Beyond</h2>
+<!-- <h3 class="orange"></h3> -->
+<h4 style="margin-top:75px">Adriaan <a style="opacity:0.75" href="http://twitter.com/adriaanm">@adriaanm</a> Moors</h4>
+<h5 class="orange">Scala Team Lead</h5>
+<h5 style="opacity: 0.75">https://github.com/adriaanm/talks/</h5>
+</section>
+
+
+
+<section>
+
+<section data-markdown><script type="text/template">
+# Open Source =
+## Open to your input
+
+</script></section><section data-markdown><script type="text/template">
+## Scala Center
+  - Empower Community
+    - Community rep: Bill Venners, Lars Hupel
+  - OSS development
+    - Scalafix, contribs to scala, sbt/zinc, scala.js, scala-native,...
+    - [scastie.scala-lang.org](https://scastie.scala-lang.org)
+    - [index.scala-lang.org](https://index.scala-lang.org/) & [Scala Platform](https://www.scala-lang.org/blog/2016/11/28/spp.html)
+  - Education
+    - Coursera
+
+</script></section><section data-markdown><script type="text/template">
+# GitHub
+## Bug tracking
+### [scala/bug](https://github.com/scala/bug)
+## Release notes
+### [github.com/scala/scala/releases](https://github.com/scala/scala/releases)
+
+</script></section><section data-markdown><script type="text/template">
+# Discourse
+## Hosted by Scala Center
+### [contributors.scala-lang.org](https://contributors.scala-lang.org/)
+### [users.scala-lang.org](https://users.scala-lang.org)
+
+</script></section><section data-markdown><script type="text/template">
+# Gitter
+### [scala/contributors](https://gitter.im/scala/contributors)
+### [scala/scala](https://gitter.im/scala/scala)
+
+</script></section><section data-markdown><script type="text/template">
+# Some Stats
+
+
+</script></section><section data-markdown><script type="text/template">
+## Community Contributions (⅓)
+### Massive Thank You!
+
+<small>[scala/scala/graphs/contributors?from=2014-11-01&to=2017-11-17&type=c](https://github.com/scala/scala/graphs/contributors?from=2014-11-01&to=2017-11-17&type=c)</small>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Lightbend Scala Team (⅔)
+#### Stefan Zeiger
+#### Seth Tisue
+#### Lukas Rytz
+#### Jason Zaugg
+#### me
+
+</script></section><section data-markdown><script type="text/template">
+## scala/community-builds
+### projects built nightly
+  - 2.11.x, April 2014: <span class="red">29</span>; now: <span class="red">48</span>
+  - 2.12.x, April 2016: <span class="red">44</span>; now: <span class="red">126</span>
+
+
+</script></section><section data-markdown><script type="text/template">
+
+# Release Cadence
+## 1 every 6 weeks
+
+</script></section><section data-markdown><script type="text/template">
+### 2017
+  - 2.11.11, 2.12.2
+  - 2.13.0-M1
+  - 2.12.3, 2.13.0-M2
+  - 2.12.4, 2.13.0-M3 (+ 2.11.12, 2.10.7)
+
+</script></section><section data-markdown><script type="text/template">
+### 2018
+  - 2.12.5, 2.13.0-M4
+  - 2.13.0
+
+</script></section>
+  
+<section>
+<!-- <img src="images/scala-lib-downloads.png" title="Scala Downloads" style="width: 90%;" alt="Scala Downloads"/>
+  for i in 0 1 2 3 4 5 6; do st_stats 2.10.$i 201705 1; done
+  for i in 0 1 2 3 4 5 6 7 8 9 10 11; do st_stats 2.11.$i 201705 1 ; done
+  for i in 0 1 2; do st_stats 2.12.$i 201705 1 ; done
+
+  -->
+<iframe  width="1200" height="720" seamless frameborder="0"  src="https://docs.google.com/spreadsheets/d/1_9FriofYW4TFXxaxqj5DzkUdXlgpvZfKyuXU9VFsKB4/pubchart?oid=339248402&amp;format=interactive"></iframe> 
+</section>
+
+</section>
+
+
+
+<section>
+
+<section data-markdown><script type="text/template">
+
+# Scala 2.12
+
+
+</script></section><section data-markdown><script type="text/template">
+## Compiling to JVM 8!
+### Trait = interface + default method
+### Function = SAM instance via INDY
+
+
+</script></section>  <section data-markdown><script type="text/template">
+
+# Smaller jars!
+
+jar | 2.11.11 | 2.12.4
+--------------------|-------|-------
+scala-compiler | 15M | 9.3M
+scala-library | 5.5M | 5.0M
+scala-reflect | 4.4M  |  3.4M
+
+
+</script></section><section data-markdown><script type="text/template">
+## Inspiration from Dotty
+  - `trait` & λ encoding
+  - Signature inference for `val`
+  - Infer H-O fun arg types of overloaded method [#5307](https://github.com/scala/scala/pull/5307)
+  - Method `lazy val` more compact [#5294](https://github.com/scala/scala/pull/5294)
+  - fields phase (+ simplified post-typer phases) [#5141](https://github.com/scala/scala/pull/5141)
+
+
+</script></section><section data-markdown><script type="text/template">
+## sbt improvements (0.13.13–15)
+  - Class-based name hashing [sbt/sbt#1104](https://github.com/sbt/sbt/issues/1104)
+  - More efficient IO for analysis [sbt/sbt#2525](https://github.com/sbt/sbt/issues/2525)
+  - Faster compilation [sbt/sbt#2754](https://github.com/sbt/sbt/pull/2754)
+  - `sbt new`
+
+  
+</script></section><section data-markdown><script type="text/template">
+## 🎉 sbt 1 is out! 🎊
+### Great uptake in community
+### Most plugins available
+### Scala 2.12 😍
+
+</script></section>
+
+</section><section>
+  
+<section data-markdown><script type="text/template">
+
+# FP
+
+
+</script></section><section data-markdown><script type="text/template">
+# FP >> Java + λ
+  - encourage immutability (isolation in time)
+  - expression-based (computation = data)
+  - case classes and pattern matching
+    - comprehensively deal with structured data
+  - intuitive, functional-by-design collections
+
+</script></section><section data-markdown><script type="text/template">
+## Type inference
+  - safety & maintainability behind scenes
+  - public types are documentation
+  - ↔ codegen: maintenance liability
+
+</script></section><section data-markdown><script type="text/template">
+##  How I stopped worrying about variance
+### "Just add +/- until it compiles."
+### <div style="text-align: right; padding-right: 1em">-- me</div>
+
+</script></section><section data-markdown><script type="text/template">
+## Function subtyping
+### Scala: definition encapsulates <: rules
+```scala
+def map[R](mapper: T => R): Stream[R]
+```
+<div>&nbsp;</div>
+### Wildcards: users encode <: rules
+```java
+<R> Stream<R> map(Function<? super T, ? extends R> mapper)
+```
+### Over, and over
+
+</script></section>
+
+</section><section>
+
+<section data-markdown><script type="text/template">
+
+#  Scala 2.13
+
+</script></section><section data-markdown><script type="text/template">
+## Library release
+#### [scala/scala-dev#324](https://github.com/scala/scala-dev/issues/324)
+#### RC1: 1H18
+
+
+</script></section><section data-markdown><script type="text/template">
+## Headlines
+### Simplify collections
+### Smaller core lib
+### Speed up compiler
+### User-friendliness
+
+
+</script></section><section data-markdown><script type="text/template">
+# Simpler Collections
+## Fix common gotchas
+## Simplify implementation & usage
+#### Minimize impact on most users
+#### Inheritance hierarchy *will* change
+#### See [blog](http://www.scala-lang.org/blog/2017/02/28/collections-rework.html)
+
+
+</script></section>
+<!--  TODO: Seth says:
+1) The 2.13 collections actually do have a banner user-facing feature, namely that views will actually work.
+I think this is a big step forward for the collections and is worth mentioning prominently whenever the
+collections improvements are presented. (Note that there is a whole Views section in
+http://www.scala-lang.org/blog/2017/02/28/collections-rework.html.)
+-->
+<section data-markdown><script type="text/template">
+## Example
+
+```scala
+// old:
+def map[B, That](f: A => B)(
+  implicit bf: CanBuildFrom[Repr, B, That]): That
+
+// new:
+def map[B](f: A => B): C[B] // intent much clearer
+```
+
+</script></section><section data-markdown><script type="text/template">
+## Example
+
+```scala
+// old:
+def to[Col[_]](
+  implicit cbf: CanBuildFrom[Nothing, A, Col[A @uV]]): Col[A @uV]
+
+// new:
+def to(bf: BuildFrom[Iterable[A], A]): bf.To
+
+// old call site:
+coll.to[Set]
+
+// new call site:
+coll.to(Set)
+coll.to(BitSet) // not possible before
+coll.to(Map) // not possible before
+```
+
+</script></section><section data-markdown><script type="text/template">
+# Modularization part 2
+## Parallel collections: ✅
+## Make way for new modules
+### [scala/scala#5677](https://github.com/scala/scala/issues/5677)
+#### <small>Looking at you, scala.io, scala.sys</small>
+
+
+</script></section><section data-markdown><script type="text/template">
+# Faster Compiler
+## Optimization
+## Automated Benchmarking & Charting
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Compiler Performance
+Scala core compile time cut by 25% in last 6 months:
+<a href="https://scala-ci.typesafe.com/grafana/dashboard/db/scala-benchmark?panelId=4&fullscreen&var-branch=2.12.x&var-source=scala&var-bench=HotScalacBenchmark.compile&var-host=scalabench@scalabench@&from=1480673096264&to=1508429045498">
+  <img src="images/bench-2.12-oct-2017.png" style="width: 100%;" />
+</a>
+
+
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+# User-friendliness
+
+</script></section><section data-markdown><script type="text/template">
+### Revamp REPL
+  - syntax highlighting
+  - nicer editing
+  - cleaner wrapping
+  - improve embeddability
+  - parity with Ammonite
+
+</script></section><section data-markdown><script type="text/template">
+### Nicer errors
+  - clearer messages
+  - configurable reporting (e.g. deprecation)
+  - see: Dotty
+
+</script></section><section data-markdown><script type="text/template">
+### sbt launcher consolidation
+ - improved getting started experience
+ - provide custom default dependencies
+ - auto upgrades
+ - see: Coursier
+
+</script></section><section data-markdown>
+<script type="text/template">
+### Scalafix
+  - use for upgrade to 2.13
+    - procedure syntax
+    - add sigs for implicits (& non-private members?)
+    - collections
+  - also, style *checking* / linting
+  - (built on scala.meta's semantic api)
+
+</script></section>
+
+</section>
+
+<section>
+
+<section data-markdown><script type="text/template">
+
+# Scala 2.14 & 2.15
+
+## Ensure smooth upgrade to 3.0 
+### (aka Dotty 1.0)
+
+</script></section><section data-markdown><script type="text/template">
+
+# Scala 2.14
+## Closer to Dotty
+### new macros
+### TASTY
+### Converge pipeline back-to-front
+
+</script></section>
+<!-- 
+ - @static
+ - name-based patmat
+ - literal singleton types
+-->
+<section data-markdown><script type="text/template">
+## Simplify Language
+ - Trait parameters
+ - Improved lazy vals & trait vals
+ - Remove: 
+    - early initializers
+    - procedure syntax
+
+</script></section><section data-markdown><script type="text/template">
+## Implicits
+  - must have explicit return type
+  - separate type for implicit conversion value
+  - lazy implicit (see: shapeless)
+  - multiple implicit patterns (see: Aux in shapeless)
+
+</script></section><section data-markdown><script type="text/template">
+## Scala 2.15
+### Last 2.x release
+### Transition to 3.0
+### Avoid Python 3
+  
+</script></section>
+
+</section>
+
+<section>
+
+<section data-markdown><script type="text/template">
+# Grateful
+## Contributors
+## Community
+## Scala Center
+## Inspiration from Dotty
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Thank you
+## Questions!
+<span style="opacity:0.75">[@adriaanm](http://twitter.com/adriaanm)</span>
+</script></section>
+
+</section>
+
+
+</div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+  // Full list of configuration options available at:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    slideNumber: true,
+    history: true,
+    center: true,
+    help: true,
+    transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+    // Optional reveal.js plugins
+    dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return true; }, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true },
+      { src: 'plugin/notes/notes.js', async: true }
+    ]
+  });
+
+</script>
+</body>
+</html>
