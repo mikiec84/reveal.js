@@ -123,19 +123,19 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 </script></section><section data-markdown><script type="text/template">
 
 # Release Cadence
-## 1 every 6 weeks
+## accelerating
+## 1 every 6 weeks (avg)
 
 </script></section><section data-markdown><script type="text/template">
-### 2017
-  - 2.11.11, 2.12.2
-  - 2.13.0-M1
-  - 2.12.3, 2.13.0-M2
-  - 2.12.4, 2.13.0-M3 (+ 2.11.12, 2.10.7)
+# Release Cadence
 
-</script></section><section data-markdown><script type="text/template">
-### 2018
-  - 2.12.5, 2.13.0-M4
-  - 2.13.0
+|first rel. | update / year
+--------------------|-------|-------
+**2.10** | Dec '12  | <span class="red">5</span> / <span class="red">2.5 yr</span>
+**2.11** | Apr '14  | <span class="red">8</span> / <span class="red">3 yr</span>
+**2.12** | Nov '16  | <span class="red">4</span> / <span class="red">1 yr</span>
+**2.13** | <em>1H18</em> |
+||
 
 </script></section>
   
@@ -170,7 +170,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 
 # Smaller jars!
 
-jar | 2.11.11 | 2.12.4
+jar | 2.11.12 | 2.12.4
 --------------------|-------|-------
 scala-compiler | 15M | 9.3M
 scala-library | 5.5M | 5.0M
@@ -208,20 +208,61 @@ scala-reflect | 4.4M  |  3.4M
 
 # FP
 
+</script></section><section data-markdown><script type="text/template">
+# Simplicity
+  - understand function purely in terms of input
+  - compose functions safely into program
+  - (de)construct values (~~mutate data~~)
+
+</script></section><section data-markdown><script type="text/template">  
+## Expression-based
+### Cohesion
+```scala
+method(if (c) x else y)
+```
+
+more direct than
+
+```scala
+if (c) method(x) else method(y)
+``` 
+
+or even
+
+```scala
+val arg = if (c) x else y
+/*disconnect*/
+method(arg)
+```
+
+<small>(Let alone `var` or other side-effects.)</small>
+
+</script></section><section data-markdown><script type="text/template">  
+## Expression-based
+### Next step: composing code (like data)
+#### `flatMap` that shit
+#### collections, akka-streams, spark,…
+
+</script></section><section data-markdown><script type="text/template">  
+## You don't optimize framework
+### Framework optimizes you(r code)
+(Manipulating your code like it was data.)
+
+</script></section><section data-markdown><script type="text/template">  
+## Safe composition
+### types direct (data and code)
+### … purity allowing
+(Effects are still too hard to track in types.)
+
+</script></section><section data-markdown><script type="text/template">  
+## Abstraction
+  - for the sake of simplicity!
+  - balance with cost (run-time, debug-time, noggin'-time)
 
 </script></section><section data-markdown><script type="text/template">
-# FP >> Java + λ
-  - encourage immutability (isolation in time)
-  - expression-based (computation = data)
-  - case classes and pattern matching
-    - comprehensively deal with structured data
-  - intuitive, functional-by-design collections
-
-</script></section><section data-markdown><script type="text/template">
-## Type inference
-  - safety & maintainability behind scenes
-  - public types are documentation
-  - ↔ codegen: maintenance liability
+## Convenience
+  - type inference (but: public types = docs)
+  - cases classes and pattern matching
 
 </script></section><section data-markdown><script type="text/template">
 ##  How I stopped worrying about variance
@@ -229,17 +270,26 @@ scala-reflect | 4.4M  |  3.4M
 ### <div style="text-align: right; padding-right: 1em">-- me</div>
 
 </script></section><section data-markdown><script type="text/template">
+## We got y'all
+### The type checker has your back.
+
+</script></section><section data-markdown><script type="text/template">
 ## Function subtyping
-### Scala: definition encapsulates <: rules
+### Definition specifies variance once
 ```scala
 def map[R](mapper: T => R): Stream[R]
 ```
 <div>&nbsp;</div>
-### Wildcards: users encode <: rules
+### Wildcards everywhere
 ```java
 <R> Stream<R> map(Function<? super T, ? extends R> mapper)
 ```
+
+&nbsp;
 ### Over, and over
+
+</script></section><section data-markdown><script type="text/template">
+### And over
 
 </script></section>
 
@@ -252,7 +302,6 @@ def map[R](mapper: T => R): Stream[R]
 </script></section><section data-markdown><script type="text/template">
 ## Library release
 #### [scala/scala-dev#324](https://github.com/scala/scala-dev/issues/324)
-#### RC1: 1H18
 
 
 </script></section><section data-markdown><script type="text/template">
@@ -269,18 +318,12 @@ def map[R](mapper: T => R): Stream[R]
 ## Simplify implementation & usage
 #### Minimize impact on most users
 #### Inheritance hierarchy *will* change
-#### See [blog](http://www.scala-lang.org/blog/2017/02/28/collections-rework.html)
+#### See Stefan's excellent [blog](http://www.scala-lang.org/blog/2017/02/28/collections-rework.html), [talk](https://www.youtube.com/watch?v=ofbaM7Yz3IM)
 
 
-</script></section>
-<!--  TODO: Seth says:
-1) The 2.13 collections actually do have a banner user-facing feature, namely that views will actually work.
-I think this is a big step forward for the collections and is worth mentioning prominently whenever the
-collections improvements are presented. (Note that there is a whole Views section in
-http://www.scala-lang.org/blog/2017/02/28/collections-rework.html.)
--->
-<section data-markdown><script type="text/template">
-## Example
+</script></section><section data-markdown><script type="text/template">
+# Simpler Collections
+## Overloading over CBF
 
 ```scala
 // old:
@@ -291,8 +334,11 @@ def map[B, That](f: A => B)(
 def map[B](f: A => B): C[B] // intent much clearer
 ```
 
+<small>Requires improved type inference of polymorphic H-O methods [#5307](https://github.com/scala/scala/pull/5307)</small>
+
 </script></section><section data-markdown><script type="text/template">
-## Example
+# Simpler Collections
+## Values over type constructors
 
 ```scala
 // old:
@@ -311,11 +357,32 @@ coll.to(BitSet) // not possible before
 coll.to(Map) // not possible before
 ```
 
+
+</script></section><section data-markdown><script type="text/template">
+# Simpler Collections
+## Views (actually work!)
+
+Reified operation over an `Iterator`, like Java 8 Stream.
+
+&nbsp;
+
+```scala
+// Build filtered Seq, then mapped Seq, then Set
+val set1 = s.filter(_ > 0).map(_.toString).to(Set)
+
+// Build Set directly (evaluating filter and map together)
+val set2 = s.view.filter(_ > 0).map(_.toString).to(Set)
+```
+
+&nbsp;
+
+Underpins better support for lazy collections.
+
 </script></section><section data-markdown><script type="text/template">
 # Modularization part 2
 ## Parallel collections: ✅
-## Make way for new modules
-### [scala/scala#5677](https://github.com/scala/scala/issues/5677)
+## compact1 profile [#6164](https://github.com/scala/scala/pull/6164)
+## Make way for new modules [#5677](https://github.com/scala/scala/issues/5677)
 #### <small>Looking at you, scala.io, scala.sys</small>
 
 
@@ -334,10 +401,7 @@ Scala core compile time cut by 25% in last 6 months:
 </a>
 
 
-</script></section>
-
-
-<section data-markdown><script type="text/template">
+</script></section><section data-markdown><script type="text/template">
 # User-friendliness
 
 </script></section><section data-markdown><script type="text/template">
@@ -361,8 +425,7 @@ Scala core compile time cut by 25% in last 6 months:
  - auto upgrades
  - see: Coursier
 
-</script></section><section data-markdown>
-<script type="text/template">
+</script></section><section data-markdown><script type="text/template">
 ### Scalafix
   - use for upgrade to 2.13
     - procedure syntax
@@ -373,33 +436,25 @@ Scala core compile time cut by 25% in last 6 months:
 
 </script></section>
 
-</section>
-
-<section>
+</section><section>
 
 <section data-markdown><script type="text/template">
 
 # Scala 2.14 & 2.15
 
 ## Ensure smooth upgrade to 3.0 
-### (aka Dotty 1.0)
+### (aka Dotty)
 
 </script></section><section data-markdown><script type="text/template">
 
 # Scala 2.14
 ## Closer to Dotty
-### new macros
-### TASTY
-### Converge pipeline back-to-front
+  - New new macros
+  - Shared IR (tast-y) 
+  - Converge pipeline back-to-front
 
-</script></section>
-<!-- 
- - @static
- - name-based patmat
- - literal singleton types
--->
-<section data-markdown><script type="text/template">
-## Simplify Language
+</script></section><section data-markdown><script type="text/template">
+## Simplification and alignment 
  - Trait parameters
  - Improved lazy vals & trait vals
  - Remove: 
@@ -414,11 +469,23 @@ Scala core compile time cut by 25% in last 6 months:
   - multiple implicit patterns (see: Aux in shapeless)
 
 </script></section><section data-markdown><script type="text/template">
+## Misc
+ - `@static`
+ - literal singleton types
+ - (non-null types?)
+
+</script></section><section data-markdown><script type="text/template">
+## Leverage coming JVM improvements
+  - value types
+  - varhandles
+  - …
+
+</script></section><section data-markdown><script type="text/template">
 ## Scala 2.15
 ### Last 2.x release
 ### Transition to 3.0
 ### Avoid Python 3
-  
+
 </script></section>
 
 </section>
