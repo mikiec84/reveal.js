@@ -82,7 +82,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 </script></section><section data-markdown><script type="text/template">
 ## 2018 goals
 ### Double OSS committer team
-Establish process
+Documented process
 
 ### Lightbend : Community commits parity
 Currently 2:1
@@ -147,18 +147,24 @@ Currently 2:1
 <iframe  width="1200" height="720" seamless frameborder="0"  src="https://docs.google.com/spreadsheets/d/1_9FriofYW4TFXxaxqj5DzkUdXlgpvZfKyuXU9VFsKB4/pubchart?oid=339248402&amp;format=interactive"></iframe> 
 </section>
 
-</section>
+</section> <section>
+
+<section data-markdown><script type="text/template">
+
+# Enterprise
+## Fortify plugin (2.11/2.12)
 
 
+</script></section>
 
-<section>
+</section> <section>
 
 <section data-markdown><script type="text/template">
 
 # Scala 2.12
 
-
 </script></section><section data-markdown><script type="text/template">
+
 ## Compiling to JVM 8!
 ### Trait = interface + default method
 ### Function = SAM instance via INDY
@@ -404,6 +410,12 @@ Scala core compile time cut by 25% in last 6 months:
 Improve tooling, docs
 
 </script></section><section data-markdown><script type="text/template">
+## `#help-wanted`
+### Configurable error reporting
+### Suppress warnings
+### REPL features
+
+</script></section><section data-markdown><script type="text/template">
 ### Revamp REPL
   - syntax highlighting
   - nicer editing
@@ -412,13 +424,8 @@ Improve tooling, docs
   - parity with Ammonite
 
 </script></section><section data-markdown><script type="text/template">
-### Nicer errors
-  - clearer messages
-  - configurable reporting (e.g. deprecation)
-
-</script></section><section data-markdown><script type="text/template">
 ### Scalafix
-  - use for upgrade to 2.13
+  - use for upgrade to 2.14
     - procedure syntax
     - add sigs for implicits (& non-private members?)
     - collections
@@ -434,18 +441,25 @@ Improve tooling, docs
 # Scala 2.14
 
 </script></section><section data-markdown><script type="text/template">
-## Tooling
-  - Faster compiler (Kentucky Mule, rsc,...)
+## Faster
+  - Compiler (Kentucky Mule, rsc,...)
+  - Faster build overall (sbt startup, Zinc on CI)
+
+</script></section><section data-markdown><script type="text/template">
+## Friendlier
   - Language Server Protocol
+  - Clearer error messages
  
 </script></section><section data-markdown><script type="text/template">
 ## Simplify, Simplify, Simplify
  - ~~early initializers~~
  - ~~procedure syntax~~
- - ~~`forSome`~~ (?)
- - ~~whitebox macros~~
- - ~~value classes~~ (opaque types)
+ - ~~`forSome`~~
+ - ~~whitebox macros~~ (deriving / codegen)
+ - ~~vast implicit scope~~
  - ~~implicit conversions~~
+ - ~~package objects~~
+ - ~~value classes~~ (opaque types)
 
 </script></section><section data-markdown><script type="text/template">
 ## Ideas from Dotty
@@ -460,7 +474,7 @@ Improve tooling, docs
   - separate type for implicit conversion value?
 
 </script></section><section data-markdown><script type="text/template">
-## Misc
+## More
  - literal singleton types
  - type lambda (kind-projector)
  - `@static`
