@@ -66,22 +66,39 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 ## Open to your input
 
 </script></section><section data-markdown><script type="text/template">
-## Scala Center
-  - Empower Community
-    - Community rep: Bill Venners, Lars Hupel
-  - OSS development
-    - Scalafix, contribs to scala, sbt/zinc, scala.js, scala-native,...
-    - [scastie.scala-lang.org](https://scastie.scala-lang.org)
-    - [index.scala-lang.org](https://index.scala-lang.org/) & [Scala Platform](https://www.scala-lang.org/blog/2016/11/28/spp.html)
-  - Education
-    - Coursera
+## Community Contributions
+### Massive Thank You!
+
+<small>[scala/scala/graphs/contributors?from=2014-11-01&to=2017-11-17&type=c](https://github.com/scala/scala/graphs/contributors?from=2014-11-01&to=2017-11-17&type=c)</small>
+
+</script></section><section data-markdown><script type="text/template">
+## Lightbend Scala Team
+#### Stefan Zeiger
+#### Seth Tisue
+#### Lukas Rytz
+#### Jason Zaugg
+#### me
+
+</script></section><section data-markdown><script type="text/template">
+## 2018 goals
+### Double OSS committer team
+Establish process
+
+### Lightbend : Community commits parity
+Currently 2:1
+
+</script></section><section data-markdown><script type="text/template">
+##  😍 Contributors
+### help-wanted
+### PR shepherding
+### Improve review response time
 
 </script></section><section data-markdown><script type="text/template">
 # GitHub
-## Bug tracking
-### [scala/bug](https://github.com/scala/bug)
 ## Release notes
-### [github.com/scala/scala/releases](https://github.com/scala/scala/releases)
+## Issue tracking
+### bugs: [scala/bug](https://github.com/scala/bug) 
+### features & planning: [scala/scala-dev](https://github.com/scala/bug)
 
 </script></section><section data-markdown><script type="text/template">
 # Discourse
@@ -95,36 +112,17 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 ### [scala/scala](https://gitter.im/scala/scala)
 
 </script></section><section data-markdown><script type="text/template">
-# Some Stats
-
-
-</script></section><section data-markdown><script type="text/template">
-## Community Contributions (⅓)
-### Massive Thank You!
-
-<small>[scala/scala/graphs/contributors?from=2014-11-01&to=2017-11-17&type=c](https://github.com/scala/scala/graphs/contributors?from=2014-11-01&to=2017-11-17&type=c)</small>
-
-</script></section><section data-markdown><script type="text/template">
-
-## Lightbend Scala Team (⅔)
-#### Stefan Zeiger
-#### Seth Tisue
-#### Lukas Rytz
-#### Jason Zaugg
-#### me
-
-</script></section><section data-markdown><script type="text/template">
 ## scala/community-builds
 ### projects built nightly
   - 2.11.x, April 2014: <span class="red">29</span>; now: <span class="red">48</span>
   - 2.12.x, April 2016: <span class="red">44</span>; now: <span class="red">126</span>
 
-
 </script></section><section data-markdown><script type="text/template">
 
 # Release Cadence
-## accelerating
+## 18 month cycle (LTS releases)
 ## 1 every 6 weeks (avg)
+## accelerating
 
 </script></section><section data-markdown><script type="text/template">
 # Release Cadence
@@ -257,7 +255,7 @@ method(arg)
 </script></section><section data-markdown><script type="text/template">  
 ## Abstraction
   - for the sake of simplicity!
-  - balance with cost (run-time, debug-time, noggin'-time)
+  - balance with cost (run-time, debug-time, wtf/s )
 
 </script></section><section data-markdown><script type="text/template">
 ## Convenience
@@ -346,7 +344,7 @@ def to[Col[_]](
   implicit cbf: CanBuildFrom[Nothing, A, Col[A @uV]]): Col[A @uV]
 
 // new:
-def to(bf: BuildFrom[Iterable[A], A]): bf.To
+def to[C1](factory: Factory[A, C1]): C1 = factory.fromSpecific(this)
 
 // old call site:
 coll.to[Set]
@@ -403,6 +401,7 @@ Scala core compile time cut by 25% in last 6 months:
 
 </script></section><section data-markdown><script type="text/template">
 # User-friendliness
+Improve tooling, docs
 
 </script></section><section data-markdown><script type="text/template">
 ### Revamp REPL
@@ -416,14 +415,6 @@ Scala core compile time cut by 25% in last 6 months:
 ### Nicer errors
   - clearer messages
   - configurable reporting (e.g. deprecation)
-  - see: Dotty
-
-</script></section><section data-markdown><script type="text/template">
-### sbt launcher consolidation
- - improved getting started experience
- - provide custom default dependencies
- - auto upgrades
- - see: Coursier
 
 </script></section><section data-markdown><script type="text/template">
 ### Scalafix
@@ -440,42 +431,43 @@ Scala core compile time cut by 25% in last 6 months:
 
 <section data-markdown><script type="text/template">
 
-# Scala 2.14 & 2.15
-
-## Ensure smooth upgrade to 3.0 
-### (aka Dotty)
-
-</script></section><section data-markdown><script type="text/template">
-
 # Scala 2.14
-## Closer to Dotty
-  - New new macros
-  - Shared IR (tast-y) 
-  - Converge pipeline back-to-front
 
 </script></section><section data-markdown><script type="text/template">
-## Simplification and alignment 
+## Tooling
+  - Faster compiler (Kentucky Mule, rsc,...)
+  - Language Server Protocol
+ 
+</script></section><section data-markdown><script type="text/template">
+## Simplify, Simplify, Simplify
+ - ~~early initializers~~
+ - ~~procedure syntax~~
+ - ~~`forSome`~~ (?)
+ - ~~whitebox macros~~
+ - ~~value classes~~ (opaque types)
+ - ~~implicit conversions~~
+
+</script></section><section data-markdown><script type="text/template">
+## Ideas from Dotty
  - Trait parameters
  - Improved lazy vals & trait vals
- - Remove: 
-    - early initializers
-    - procedure syntax
 
 </script></section><section data-markdown><script type="text/template">
 ## Implicits
   - must have explicit return type
-  - separate type for implicit conversion value
   - lazy implicit (see: shapeless)
   - multiple implicit patterns (see: Aux in shapeless)
+  - separate type for implicit conversion value?
 
 </script></section><section data-markdown><script type="text/template">
 ## Misc
- - `@static`
  - literal singleton types
+ - type lambda (kind-projector)
+ - `@static`
  - (non-null types?)
 
 </script></section><section data-markdown><script type="text/template">
-## Leverage coming JVM improvements
+## New JVM shiny
   - value types
   - varhandles
   - …
@@ -502,8 +494,8 @@ Scala core compile time cut by 25% in last 6 months:
 </script></section>
 
 <section data-markdown><script type="text/template">
-# Thank you
-## Questions!
+## Thank you
+### Any Questions!?!
 <span style="opacity:0.75">[@adriaanm](http://twitter.com/adriaanm)</span>
 </script></section>
 
