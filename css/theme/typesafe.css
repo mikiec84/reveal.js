@@ -79,6 +79,11 @@ body {
   font-size: 2.5em;
 }
 
+section.large h1 {
+  font-size: 5em;
+}
+
+
 section.scaladays h1 {
   color: #FF5754;
   font-size: 2.5em;
