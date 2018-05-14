@@ -60,6 +60,108 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 </section>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<section>
+<section class="large" data-markdown><script type="text/template">
+
+# Scala 2.13
+
+</script></section><section data-markdown><script type="text/template">
+# Library release
+#### [scala/scala-dev#324](https://github.com/scala/scala-dev/issues/324)
+### M4 out now
+### M5 in 3 months
+### Final: October
+
+</script></section><section data-markdown><script type="text/template">
+# Headlines
+#### Simpler collections
+#### Smaller core lib
+#### Faster compiler
+#### Java 9 support (minimal)
+#### User-friendliness
+
+
+</script></section><section data-markdown><script type="text/template">
+# Simpler Collections
+  -  Fix common gotchas
+  -  Simplify implementation & usage
+  -  Improved type inference of overloaded HO method
+  <!-- ## See Stefan &amp; Julien's talk (16:45, track 2) -->
+  -  Available now (M4)
+
+
+</script></section><section data-markdown><script type="text/template">
+# Smaller core lib
+## Parallel collections: ✅
+## compact1 profile: ✅ [#6164](https://github.com/scala/scala/pull/6164)
+## Make way for new modules [#5677](https://github.com/scala/scala/issues/5677)
+#### <small>Looking at you, scala.io, scala.sys</small>
+
+
+</script></section><section data-markdown><script type="text/template">
+# Faster Compiler
+#### Optimization
+#### Automated Benchmarking & Charting
+#### <a href="https://scala-ci.typesafe.com/grafana/dashboard/db/scala-benchmark?orgId=1&from=now-1y&to=now&var-branch=2.12.x&var-branch=2.13.x&var-source=All&var-bench=HotScalacBenchmark.compile&var-host=scalabench@scalabench@">
+20% improvement (last 12 months, hot compiler)
+</a>
+
+
+</script></section><section data-markdown><script type="text/template">
+# User-friendliness
+## Improve tooling
+### Scala Center
+## Better docs
+### Great way to start contributing
+
+</script></section><section data-markdown><script type="text/template">
+### Scalafix
+  - use for upgrade to 2.14
+    - procedure syntax
+    - add sigs for implicits (& non-private members?)
+    - collections
+  - also, style *checking* / linting
+  - (built on scala.meta's semantic api)
+
+</script></section><section data-markdown><script type="text/template">
+### LSP: modern IDE support
+  - Dotty presentation compiler
+  - TASTY and SemanticDB
+
+</script></section><section data-markdown><script type="text/template">
+### BSP / Build tools
+  - Bloop (not a build tool)
+  - Mill (bazel-ish)
+  - Fury (source dependencies)
+  - *&lt;insert your build tool here&gt;*
+
+</script></section><section data-markdown><script type="text/template">
+## Typelevel & friends!
+ - literal singleton types
+ - implicit search
+ - type constructor inference
+
+</script></section><section data-markdown><script type="text/template">
+## `#help-wanted`
+### Configurable error reporting
+### Suppress warnings
+### Nicer REPL
+
+</script></section><section data-markdown><script type="text/template">
+### Revamp REPL
+  - syntax highlighting
+  - nicer editing
+  - cleaner wrapping
+  - improve embeddability
+  - parity with Ammonite
+
+
+</script></section>
+</section>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <section>
@@ -114,150 +216,46 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 </section>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-<section>
-<section class="large" data-markdown><script type="text/template">
-
-# Scala 2.13
-
-</script></section><section data-markdown><script type="text/template">
-# Library release
-#### [scala/scala-dev#324](https://github.com/scala/scala-dev/issues/324)
-### M4 out now
-### M5 in 3 months
-### Final: October
-
-</script></section><section data-markdown><script type="text/template">
-# Headlines
-#### Simpler collections
-#### Smaller core lib
-#### Faster compiler
-#### Java 9 support (minimal)
-#### User-friendliness
-
-
-</script></section><section data-markdown><script type="text/template">
-# Simpler Collections
-## Fix common gotchas
-## Simplify implementation & usage
-## See Stefan and Julien's talk (16:45, track 2)
-## Available in 2.13.0-M4
-
-
-</script></section><section data-markdown><script type="text/template">
-# Smaller core lib
-## Parallel collections: ✅
-## compact1 profile: ✅ [#6164](https://github.com/scala/scala/pull/6164)
-## Make way for new modules [#5677](https://github.com/scala/scala/issues/5677)
-#### <small>Looking at you, scala.io, scala.sys</small>
-
-
-</script></section><section data-markdown><script type="text/template">
-# Faster Compiler
-#### Optimization
-#### Automated Benchmarking & Charting
-#### <a href="https://scala-ci.typesafe.com/grafana/dashboard/db/scala-benchmark?orgId=1&from=now-1y&to=now&var-branch=2.12.x&var-branch=2.13.x&var-source=All&var-bench=HotScalacBenchmark.compile&var-host=scalabench@scalabench@">
-20% improvement (last 12 months, hot compiler)
-</a>
-
-
-</script></section><section data-markdown><script type="text/template">
-# User-friendliness
-## Improve tooling
-### Scala Center
-## Better docs
-### Great way to start contributing
-
-</script></section><section data-markdown><script type="text/template">
-### Scalafix
-  - use for upgrade to 2.14
-    - procedure syntax
-    - add sigs for implicits (& non-private members?)
-    - collections
-  - also, style *checking* / linting
-  - (built on scala.meta's semantic api)
-
-</script></section><section data-markdown><script type="text/template">
-### LSP: modern IDE support
-  - Dotty presentation compiler
-	- TASTY and SemanticDB
-	
-</script></section><section data-markdown><script type="text/template">
-### BSP / Build tools
-  - Bloop
-	- Mill
-	- Fury
-
-</script></section><section data-markdown><script type="text/template">
-## `#help-wanted`
-### Configurable error reporting
-### Suppress warnings
-### Nicer REPL
-
-</script></section><section data-markdown><script type="text/template">
-### Revamp REPL
-  - syntax highlighting
-  - nicer editing
-  - cleaner wrapping
-  - improve embeddability
-  - parity with Ammonite
-
-
-</script></section>
-</section>
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <section>
 <section class="large" data-markdown><script type="text/template">
 
 # Scala 2.14
-
-</script></section><section data-markdown><script type="text/template">
-## Faster
-  - Compiler (Kentucky Mule, rsc,...)
-  - Faster build overall (sbt startup, Zinc on CI)
-
-</script></section><section data-markdown><script type="text/template">
-## Friendlier
-  - Language Server Protocol
-  - Clearer error messages
  
 </script></section><section data-markdown><script type="text/template">
 ## Mind the Gap: Scala 3
+  - stdlib identical
+  - merge compilers back to front
+  - interop 2.14 & 3.0: TASTY
+  - simplify: [github.com/scala/scala-dev/milestone/18](https://github.com/scala/scala-dev/milestone/18)
 
 </script></section><section data-markdown><script type="text/template">
-
- - ~~early initializers~~
- - Trait parameters
- - ~~procedure syntax~~
- - ~~`forSome`~~
- - ~~whitebox macros~~ (deriving / codegen)
- - ~~vast implicit scope~~
- - ~~implicit conversions~~
- - ~~package objects~~
- - ~~value classes~~ (opaque types)
+## Drop:
+ - early initializers: trait parameters
+ - procedure syntax
 
 </script></section><section data-markdown><script type="text/template">
-## Ideas from Dotty
- - Improved lazy vals & trait vals
+## Deprecate:
+ - <span class="red">forSome</span>: only wildcards
+ - <span class="red">value classes</span>: opaque types
+ - <span class="red">whitebox macros</span>: deriving / codegen
+ - <span class="red">package object inheritance?</span>
+ - <span class="red">vast implicit scope?</span> (ignore packages in prefix)
 
 </script></section><section data-markdown><script type="text/template">
 ## Implicits
   - must have explicit return type
   - lazy implicit (see: shapeless)
   - multiple implicit patterns (see: Aux in shapeless)
-  - separate type for implicit conversion value?
 
 </script></section><section data-markdown><script type="text/template">
 ## More
- - literal singleton types
  - type lambda (kind-projector)
  - `@static`
- - (non-null types?)
 
 </script></section><section data-markdown><script type="text/template">
-## New JVM shiny
+## (Later) New JVM shiny?
   - varhandles
   - minimal value types?
   - …
@@ -276,7 +274,8 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 # Scala 3
 
 </script></section><section data-markdown><script type="text/template">
-##
+## Should be like a 2.15
+### Just more exciting :-)
 
 </script></section>
 </section>
