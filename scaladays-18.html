@@ -98,6 +98,10 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
   -  Improved type inference of overloaded HO method
   -  Available now (M4)
 
+</script></section><section data-markdown><script type="text/template">
+# 2.13.0-M4 upgrade
+  - [scala/community-builds#710](https://github.com/scala/community-builds/issues/710)
+  - Thank you, [@xuwei-k](https://github.com/xuwei-k)! 🙏 × 18
 
 </script></section><section data-markdown><script type="text/template">
 # Smaller core lib
@@ -161,7 +165,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
   - syntax highlighting
   - nicer editing
   - cleaner wrapping
-  - improve embeddability
+  - improve embeddability (e.g. Spark)
   - parity with Ammonite
 
 
@@ -249,10 +253,22 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 # Scala 2.14
  
 </script></section><section data-markdown><script type="text/template">
-## Mind the Gap: Scala 3
-  - stdlib identical
-  - merge compilers back to front
-  - interop 2.14 & 3.0: TASTY
+# Close the Scala 3 Gap
+  - stdlib identical (2.13 & 3.0)
+  - TASTY 
+     - interop
+     - shared compiler (post-typer)
+     - tooling
+
+</script></section><section data-markdown><script type="text/template">
+# T-AST-y?
+  - Source code, fully type checked
+  - Full semantic information
+
+</script></section><section data-markdown><script type="text/template">
+# Binary Compatibility?
+  - TASTY: Source compat == bin compat
+  - Not about: API evolution
 
 </script></section><section data-markdown><script type="text/template">
 # Simplify
@@ -267,7 +283,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 ## Deprecate:
  - <span class="red">forSome</span>: only wildcards
  - <span class="red">value classes</span>: opaque types
- - <span class="red">whitebox macros</span>: deriving / codegen
+ - <span class="red">whitebox macros</span>: typelevel fun / codegen
  - <span class="red">package object inheritance?</span>
  - <span class="red">vast implicit scope?</span> (ignore packages in prefix)
 
@@ -310,9 +326,9 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 </script></section><section data-markdown><script type="text/template">
 # Excitement
   - Implicit function types
+  - Union types
   - `transparent` + principled meta-programming
   - New macros
-  - Union types
   - `enum`
   - `@static`
 
