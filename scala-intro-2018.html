@@ -58,97 +58,111 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 </section>
 
 
-<section>
-<section data-markdown><script type="text/template">
-
+<section> <!-- INTRO: WHY -->
+<slide>
 # Scala
+## Unifies OO & FP
+## Regular
+## Pragmatic
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 # Unifier
+## "Scala-ble"
   - FP & OOP
   - Safety in types & Convenience of inference
   - From oneliner to millions
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 ## Types come second
 ### because optional
   - public types are documentation
   - (↔ codegen: maintenance liability)
   - best types are unseen
     - e.g., definition-site variance
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
-
+<slide>
 # Regular
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 ## Syntactically
 
 ```
-val    x             : T      = ???
-def    m[Ti] (ai: Ui): U      = ???
-class  C[Ti] (ai: Ui) extends P(aj) { ... }
-object o              extends C(ai) { ... }
-type   T                      = ...
-type   T  >: L <: U
+val    x              : T      = ???
+def    m [Ti] (ai: Ui): U      = ???
+class  C [Ti] (ai: Ui) extends P(aj) { ... }
+object o               extends C(ai) { ... }
+type   T                       = ...
+type   T   >: L <: U
 ```
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 ## No limits / exceptions
   - Arbitrary nesting
   - Higher-order (Methods and Types)
   - Operator names (Primitive types are types too)
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 ## Conceptually
 ### Pure OO
 ###  value = object
 ###  operation = method call
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 ### Everything is an expression
   - think in values, not side-effects
   - statement is expression `: Unit`
   - all types subject to polymorphism
   - ⟹ function types uniform
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 ### Small core reaches far
 #### Start small, grow methodically.
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 ### Growing
-  - `f(x)` =  `f.apply(x)`
-  - for comprehension
+  - `f(x)` = `f.apply(x)`
+  - `for` comprehension
   - string interpolation
   - pattern matching / extractors
-  - static member is `object` member
+  - `object` member replaces `static`
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 ### Regularity begets flexibility
 #### Our flexibility is your flexibility.
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 ### Flexibility requires discipline
 The language is not opinionated, but we should be.
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
+<slide>
 # Practical
 
 #### simplest solution
 #### solves the problem today
 #### can understand tomorrow
 #### evolve later
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
-
-### Language is a tool
+<slide>
+## Language is a tool
 
 #### improve our understanding
-#### through static typing, FP, abstraction
+#### through abstraction, static typing, purity
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
-
+<slide>
 ## Aid
 ### static types: refactor with confidence
 type inference to refactor with ease
@@ -157,42 +171,23 @@ composed into different solutions
 ### abstraction: capture essence
 not obscure it
 <!-- balance abstraction cost versus cost of repeating yourself -->
+</slide>
 
-</script></section><section data-markdown><script type="text/template">
-
-## Shield
-### implementation details: encapsulate!
+<slide>
+## Shield from...
+### ... implementation details: encapsulate!
 OO's forte
-###  from time: immutable
+### ... time: immutable
 mutability exposes order of execution
 <!-- (side effects ephemeral, values are real) -->
-### from distribution: asynchrony
+### ... space: asynchrony
 synchrony exposes distance/failure
-
-
-
-</script></section></section>
-
-
-<slide>
-# Unifies OO and FP
-  - classes abstract over members
-        - functions abstract over parameters
-        - function is an object is an instance of a class
-        - computations represented as method invocations
-        - declarations and expressions (no statements)
 </slide>
 
-<slide>
-# Safe yet concise
-  - statically typed
-        - local type inference (types = docs | details)
-        - compact, malleable syntax
-</slide>
+</section> <!-- /INTRO -->
 
-</section>
 
-<section>
+<section> <!-- OO -->
 
 <slide>
 # OO
@@ -203,7 +198,7 @@ synchrony exposes distance/failure
 
 ```
 class Person(val name: String) {
-        def `👋` = println(s"Hi, $name!")
+	def `👋` = println(s"Hi, $name!")
   override def toString = s"Person($name)"
 }
 
@@ -214,18 +209,27 @@ object a extends Person("Adriaan")
 <slide>
 # Class
   - primary constructor (define & init members)
-        - extends one other class, multiple traits
-        - may be abstract / final / sealed
-        - has members
+  - extends one other class, multiple traits
+  - may be abstract / final / sealed
+  - has members
 
 </slide>
 
 <slide>
 # Member
   - type: class/trait/type
-        - value: def/val/var/object
-        - syntax: *keyword* *signature* [= *rhs*]
+  - value: def/val/var/object
+  - syntax: *keyword* *signature* [= *rhs*]
 </slide>
+
+<slide>
+# Member
+## `val` / `var`
+uniform access principle
+`val x: Int` == `def x: Int; def x_= (v: Int): Unit`
+
+`lazy val`
+
 
 <slide>
 # Traits
@@ -234,16 +238,41 @@ object a extends Person("Adriaan")
 trait Waveable { def `👋`: Unit }
 ```
 
+compare to java interfaces: can have fields,...
+
+linearisation
+
+difference with class: don't statically know super
 
 # Case class
 ```
 case class Person(name: String)
 ```
 
+# Object
+  - single instance
+  - `object` member replaces `static`
 
-</section>
 
-<section>
+<slide>
+  - string interpolation
+	- `s"Hello $name"` is syntactic sugar
+
+```
+scala> val name = "a"
+name: String = a
+
+scala> s"Hello $name" // print
+   scala.StringContext.apply("Hello ", "").s(name) // : String
+```
+	
+</slide>
+
+</section> <!-- /OO -->
+
+
+
+<section> <!-- FP -->
 # FP
 
 
@@ -253,54 +282,41 @@ case class Person(name: String)
   - (de)construct values (~~mutate data~~)
 
 
+<slide>
 ## Expression-based
 ### Cohesion
 ```scala
-method(if (c) x else y)
+process(if (c) fooBar else woeleWoele)
 ```
 
 more direct than
 
 ```scala
-if (c) method(x) else method(y)
+if (c) process(fooBar) else process(woeleWoele)
 ```
+</slide>
 
-or even
+<slide>
+## Expression-based
+### Cohesion?
 
 ```scala
-val arg = if (c) x else y
-/*disconnect*/
-method(arg)
+var arg: Int = _
+
+if (c) arg = woeleWoele 
+else arg = fooBar
+
+/* what was I doing again? */
+
+process(arg) // oh yeah
 ```
+</slide>
 
-<small>(Let alone `var` or other side-effects.)</small>
-
-
-## Expression-based
-### Next step: composing code (like data)
-#### `flatMap` that shit
-#### collections, akka-streams, spark,…
+<slide>
+  - pattern matching / extractors
+</slide>
 
 
-## You don't optimize framework
-### Framework optimizes you(r code)
-(Manipulating your code like it was data.)
-
-
-## Safe composition
-### types direct (data and code)
-### … purity allowing
-(Effects are still too hard to track in types.)
-
-
-## Abstraction
-  - for the sake of simplicity!
-  - balance with cost (run-time, debug-time, wtf/s )
-
-
-## Convenience
-  - type inference (but: public types = docs)
-  - cases classes and pattern matching
 
 
 ##  How I stopped worrying about variance
@@ -328,7 +344,32 @@ def map[R](mapper: T => R): Stream[R]
 
 
 ### And over
-</section>
+
+<slide>
+# Function as object
+  - `f(x)` = `f.apply(x)`
+
+</slide>
+
+<slide>
+# Member v parameter
+</slide>
+
+<slide>
+	higher-order method using pure OO
+</slide>
+
+<slide>
+  - `for` comprehension
+</slide>
+
+
+
+<slide>
+# Implicits
+</slide>
+
+</section> <!-- /FP -->
 
 
 
