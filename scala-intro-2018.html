@@ -59,29 +59,29 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 
 
 <section> <!-- INTRO: WHY -->
-<slide>
+<section data-markdown><script type="text/template">
 # Scala
 ## Unifies OO & FP
 ## Regular
 ## Pragmatic
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 # Unifier
 ## "Scala-ble"
   - FP & OOP
   - Safety in types & Convenience of inference
   - Oneliner → 1MLoC
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 # Regular
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 ## Syntactically
 
-```
+```scala
 val    x              : T      = ???
 def    m [Ti] (ai: Ui): U      = ???
 class  C [Ti] (ai: Ui) extends P(aj) { ... }
@@ -89,234 +89,339 @@ object o               extends C(ai) { ... }
 type   T                       = ...
 type   T   >: L <: U
 ```
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 ## Types come second
 ### because optional
   - public types are documentation
   - (↔ codegen: maintenance liability)
   - best types are unseen
     - e.g., definition-site variance
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 ## Conceptually
 ### Pure OO
 ###  value = object
 ###  operation = method call
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 ## No limits / exceptions
   - Arbitrary nesting
   - Higher-order (Methods and Types)
   - Operator names (Primitive types are types too)
-</slide>
+</script></section>
 
 
-<slide>
+<section data-markdown><script type="text/template">
 ### Everything is an expression
   - think in values, not side-effects
   - statement is expression `: Unit`
   - all types subject to polymorphism
   - ⟹ function types uniform
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 ### Small core reaches far
 #### Start small, grow methodically.
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 ### Growing
   - `f(x)` = `f.apply(x)`
   - `for` comprehension
   - string interpolation
   - pattern matching / extractors
-</slide>
+</script></section>
 
-<slide>
-### Regularity begets flexibility
-#### Our flexibility is your flexibility.
-
-(Every operation == method: OO principles apply uniformly to language.)
-</slide>
-
-<slide>
+<section data-markdown><script type="text/template">
 ### Flexibility requires discipline
 
-The language is not opinionated, but programmer should be.
-</slide>
+#### The language is not opinionated;
+#### programmer needs to be!
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 # Practical
 
 #### simplest solution
 #### solves the problem today
 #### can understand tomorrow
 #### evolve later
-</slide>
+</script></section>
 
-<slide>
-## Language is a tool
+<section data-markdown><script type="text/template">
+### Language is a tool
 
 #### improve our understanding
 #### through abstraction, static typing, purity
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 ## Aid
 ### static types: refactor with confidence
 type inference to refactor with ease
 
+</script></section><section data-markdown><script type="text/template">
+
 ### FP: small abstractions in isolation
 composed into different solutions
 
+</script></section><section data-markdown><script type="text/template">
 ### abstraction: capture essence
 not obscure it
 <!-- balance abstraction cost versus cost of repeating yourself -->
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 ## Shield from...
 ### ... implementation details: encapsulate!
 OO's forte
 
+</script></section><section data-markdown><script type="text/template">
+
 ### ... time: immutable
 mutability exposes order of execution
 
+</script></section><section data-markdown><script type="text/template">
+  
 <!-- (side effects ephemeral, values are real) -->
 ### ... space: asynchrony
 synchrony exposes distance/failure
-</slide>
+</script></section>
 
 </section> <!-- /INTRO -->
 
 
 <section> <!-- OO -->
 
-<slide>
+<section data-markdown><script type="text/template">
 # OO
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
+### Modularity
+Interfaces and loose coupling
+
+### Extensibility
+Easily add new types
+</script></section>
+
+<section data-markdown><script type="text/template">
 # Classes and objects
 
-```
+```scala
 class Person(val name: String) {
   def `👋` = println(s"Hi, $name!")
+
   override def toString = s"Person($name)"
 }
 
 object a extends Person("Adriaan")
 ```
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 # Class
   - (primary) constructor (args to init members)
-  - extends one other class, multiple traits
+  - `extends` one other class, multiple traits
   - may be `abstract` / `final` / `sealed`
   - declares members
-  - contains expressions (often code smell)
-</slide>
+  - contains expressions (often 🤔)
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 # Members
   - type: `class` / `trait` / `type`
   - value: `def` / `val` / `var` / `object`
   - syntax: `*keyword* *signature* [= *rhs*]`
-</slide>
-
-<slide>
-# Member
-## `def`: method
   - public by default
-  - type params: `def id[T](x: T): T = x`
-</slide>
+  - abstract if there's no right hand side
+</script></section>
 
-<slide>
-# Member
-## `def`: method
-  - dependent types: `def idReally(x: AnyRef): x.type = x`
+<section data-markdown><script type="text/template">
+## `def`
+  - omitted return type is inferred
+  - `override` must be specified
+  - abstract: 
+    - `def foo: Any`
+  - may be polymorphic
+    - `def id[T](x: T): T = x`
+</script></section>
+
+<section data-markdown><script type="text/template">
+### à propos: dependent types
+  - types can depend on argument *values*
+    - `def idReally(x: AnyRef): x.type = x`
   - `p.type` qualifies terms statically known to be `eq p`
-</slide>
+  - also supports literals 😎 
+    - `1: 1` and `"a" : "a"` 🤯
+</script></section>
 
-<slide>
-# Member
+<section data-markdown><script type="text/template">
 ## Access
-  - Over-designed feature of Scala.
-  - (Does not map well to JVM.)
+  - Over-designed feature of Scala… <small>(+ hard to compile to JVM)</small>
   - Probably best to stick to `private`,
-  - maybe qualified as: `private[this]`, `private[somePkg]`
-  - `protected`: should we really privilege subclasses?
-</slide>
+    - possibly qualified: `private[this]`, `private[somePkg]`
+  - also have `protected`, but should we really privilege subclasses?
+</script></section>
 
-<slide>
-# Member
+<section data-markdown><script type="text/template">
 ## `def`
   - multiple argument lists: 
 
-```
+```scala
 // repl time!
 def repeat(n: Int)(s: String): String = s * n
-val thrice = repeat(3)
+val thrice = repeat(3) // 👀
 ```
   
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 # Member
-## `def`
-</slide>
+## `val` / `var` / `lazy val`
+  - prefer `val`, but `var` is there if you need it
+  - `lazy val` cannot be abstract (just write a `val`)
+</script></section>
 
-<slide>
-# Member
-## `val` / `var`
-uniform access principle
-`val x: Int` == `def x: Int; def x_= (v: Int): Unit`
+<section data-markdown><script type="text/template">
+### Uniform Access Principle
+&nbsp;
 
-`lazy val`
+```scala
+trait HasX {
+  def x: Int
+  def x_= (v: Int): Unit
+}
 
+class C extends HasX { var x: Int = 1 }
 
-<slide>
-# Traits
+val hasX: HasX = new C
 
+hasX.x = 2
+
+println(hasX.x)
 ```
-trait Waveable { def `👋`: Unit }
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Uniform Access Principle
+&nbsp;
+
+```scala
+trait HasX {  def x: Int }
+
+// subclass implements abstract getter using `val`
+// (but not vice versa! why?)
+class C extends HasX { val x: Int = 1 }
 ```
+</script></section>
 
-compare to java interfaces: can have fields,...
+<section data-markdown><script type="text/template">
+# Object
+  - single instance, lazily initialized
+  - usually defined together with class ("companion")
+  - `object` member replaces `static` class member
+</script></section>
 
-linearisation
 
-difference with class: don't statically know super
 
-# Case class
-```
+<section data-markdown><script type="text/template">
+# Case Class
+
+## reduce boilerplate
+  - structuring & destructuring blobs of data
+  - compiler synthesizes methods: *implementation follows structure*
+
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Case Class Syntactic sugar
+
+```scala
 case class Person(name: String)
 ```
 
-auto-generate toString, equals, hashCode
+Expands to: <small>(will explain why soon)</small>
+  
+```scala
+class Person(val name: String) {
+  override def equals(x: Any): Boolean = (this eq x) || (x match {
+    case x: Person => name == x.name
+    case _ => false
+  }
+}
 
-# Object
-  - single instance
-  - `object` member replaces `static`
+// companion object
+object Person {
+  def apply(name: String): Person = new Person(name)
+  def unapply(x: Person): Option[String] = if (x == null) None else Some(x.name)
+}
+```
+</script></section>
 
 
-<slide>
+<section data-markdown><script type="text/template">
+### Constructing a `Person`
+```
+val p1 = Person("p1") // desugars to:
+val p1 = Person.apply("p1") // could have smarter `apply` method
+val p1 = new Person("p1") // allowed too, but `new` is fixed
+```
+
+Putting this in reverse:
+```
+val Person(name) = p1 // desugars to:
+val name = Person.unapply(p1).get
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Traits
+
+```scala
+trait Waveable { 
+  def name: String
+  def `👋` = println(s"Hi, $name!")
+}
+
+case class Person(name: String) extends Waveable
+
+Person("everyone").`👋`
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Traits
+Much like Java 8 interfaces, but with fewer restrictions. 
+May declare same members as a class.
+
+## Linearisation
+Difference with class: don't statically know `super`
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Syntactic sugar
   - string interpolation
   - `s"Hello $name"` is syntactic sugar
 
-```
+```scala
 scala> val name = "a"
 name: String = a
 
 scala> s"Hello $name" // print
    scala.StringContext.apply("Hello ", "").s(name) // : String
 ```
-</slide>
+</script></section>
 
 
 </section> <!-- /OO -->
@@ -324,16 +429,28 @@ scala> s"Hello $name" // print
 
 
 <section> <!-- FP -->
+
+<section data-markdown><script type="text/template">
 # FP
+</script></section>
+
+<section data-markdown><script type="text/template">
+### Modularity
+Often outside language, more restrained
+
+### Extensibility
+Easily add new operations
+</script></section>
 
 
+<section data-markdown><script type="text/template">
 # Simplicity
   - understand function purely in terms of input
   - compose functions safely into program
   - (de)construct values (~~mutate data~~)
+</script></section>
 
-
-<slide>
+<section data-markdown><script type="text/template">
 ## Expression-based
 ### Cohesion
 ```scala
@@ -345,9 +462,9 @@ more direct than
 ```scala
 if (c) process(fooBar) else process(woeleWoele)
 ```
-</slide>
+</script></section>
 
-<slide>
+<section data-markdown><script type="text/template">
 ## Expression-based
 ### Cohesion?
 
@@ -361,23 +478,41 @@ else arg = fooBar
 
 process(arg) // oh yeah
 ```
-</slide>
+</script></section>
 
-<slide>
+
+<section data-markdown><script type="text/template">
+  - tuples cf case classes
+  - unit
+</script></section>
+
+
+<section data-markdown><script type="text/template">
   - pattern matching / extractors
-</slide>
+</script></section>
 
 
+<section data-markdown><script type="text/template">
+# Function as object
+  - `f(x)` = `f.apply(x)`
 
+</script></section>
+
+
+<section data-markdown><script type="text/template">
 
 ##  How I stopped worrying about variance
 ### "Just add +/- until it compiles."
 ### <div style="text-align: right; padding-right: 1em">-- me</div>
+</script></section>
 
+<section data-markdown><script type="text/template">
 
 ## We got y'all
 ### The type checker has your back.
+</script></section>
 
+<section data-markdown><script type="text/template">
 
 ## Function subtyping
 ### Definition specifies variance once
@@ -395,38 +530,41 @@ def map[R](mapper: T => R): Stream[R]
 
 
 ### And over
+</script></section>
 
-<slide>
-# Function as object
-  - `f(x)` = `f.apply(x)`
-
-</slide>
-
-<slide>
-# Member v parameter
-</slide>
-
-<slide>
-  higher-order method using pure OO
-</slide>
-
-<slide>
+<section data-markdown><script type="text/template">
   - `for` comprehension
-</slide>
+</script></section>
 
 
-
-<slide>
+<section data-markdown><script type="text/template">
 # Implicits
-</slide>
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+# Member v parameter
+  higher-order method using pure OO
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+  type constructor polymorphism
+  
+  
+</script></section>
+
+
 
 </section> <!-- /FP -->
 
 
 
 <section>
+<section data-markdown><script type="text/template">  
 ## Thank you
-### Any Questions!?!
+### More Questions!
+</script></section>
 </section>
 
 
