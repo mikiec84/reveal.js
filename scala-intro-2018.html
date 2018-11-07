@@ -67,17 +67,17 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 <section data-markdown><script type="text/template">
 ## Who?
  - Martin Odersky & team at EPFL, 
- - many OSS contributors!
+ - many OSS contributors! github.com/scala/scala
 </script></section>
 
 <section data-markdown><script type="text/template">
 ## Why?
 ### Java was stagnating
-<small>(Martin wrote generic javac, but generics got commented out for 1.4)</small>
+<small>(Martin wrote generic javac, but generics got commented out for 1.4…)</small>
 ### Bring FP from academia to mainstream
 First big commercial adopter: Twitter in 2007
 <small>(Now many millions of LoC.)</small>
-### Less typing, more fun
+### Less typing, more fun!
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -92,7 +92,7 @@ First big commercial adopter: Twitter in 2007
 ## "Scala-ble"
   - FP & OOP
   - Safety in types & Convenience of inference
-  - Oneliner → 1MLoC
+  - Oneliner → N MLoC
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -228,6 +228,7 @@ synchrony exposes distance/failure
 
 <section data-markdown><script type="text/template">
 # OO
+## Programming with objects
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -488,6 +489,7 @@ scala.StringContext.apply("Hello ", "").s(name) // : String
 
 <section data-markdown><script type="text/template">
 # FP
+## Programming with functions
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -537,13 +539,32 @@ process(arg) // oh yeah
 </script></section>
 
 <section data-markdown><script type="text/template">
-# Functions
-  - type: `A => B`
-  - expression: `x => y`
-  - shorthands: `_ + 1` == `x => x + 1` == `x => x.1
-  - `f(x)` = `f.apply(x)`
+# So, functions
+  - type: `(A1, ..., AN) => Result`
+  - expression: `(x1, ..., xn) => y`
+  - shorthand: 
+    - `f(x)` = `f.apply(x)`
+    - `_ + 1` == `x => x + 1` == `x => x.+(1)`
 </script></section>
 
+<section data-markdown><script type="text/template">
+# Function = object
+  - predefined `FunctionN` classes (`N=1..22`)
+  - or your own: `trait F { def apply(x: Int): Int }`
+  - or: Java 8's Single Abstract Method representation
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Philosophical interlude
+  - FP
+    - abstract using parameter: `x => ...
+    - concretise with function application: `f(a)`
+  - OO
+    - abstract member**s**: 
+      - `trait T { def a ; def b }`
+    - concretise by implementing members:
+      - `new T { def a = ??? ; def b = ??? }`
+</script></section>
 
 <section data-markdown><script type="text/template">
 # Tuples
@@ -577,7 +598,7 @@ val tuple0 = () // 🤔
 </script></section>
 
 <section data-markdown><script type="text/template">
-# Pattern matching example
+# Example: pattern matching & recursion
 ```scala
 def reverse[T](xs: List[T]): List[T] = {
   def loop(xs: List[T], acc: List[T]): List[T] = xs match {
@@ -610,23 +631,32 @@ List(1,2,3,4).filter(_ % 2 == 0)
 
 <section data-markdown><script type="text/template">
 # Implicits
+  - Type checker supplies implicit argument if known precisely from type.
+  - cf. Haskell type classes
 
-TODO
+&nbsp;
+
+```scala
+def foo(...)(implicit logger: Logger) = ???
+
+implicit val myLogger: Logger = new MyLogger
+foo(...) // no need to specify logger arg
+```
 
 </script></section>
 
 
-<!-- <section data-markdown><script type="text/template">
-# Member v parameter
-  higher-order method using pure OO
-
-</script></section>
+<!-- 
 <section data-markdown><script type="text/template">
   type constructor polymorphism
-  
-  
 </script></section>
  -->
+
+
+<section data-markdown><script type="text/template">
+## We got y'all
+### The type checker has your back.
+</script></section>
 
 
 <section data-markdown><script type="text/template">
@@ -636,28 +666,37 @@ TODO
 </script></section>
 
 <section data-markdown><script type="text/template">
-## We got y'all
-### The type checker has your back.
+## Type system working for you
+### Definition specifies variance
+```scala
+trait Function1[-A, +R] { def apply(x: A): R }
+```
+&nbsp;
+
+### Subtyping intuition:
+You may supply a "better" function that:
+  - imposes fewer restrictions on its arguments and 
+  - makes more promises about its result.
 </script></section>
 
 <section data-markdown><script type="text/template">
-
 ## Function subtyping
-### Definition specifies variance once
+
+### Scala: no fuss
+
 ```scala
 def map[R](mapper: T => R): Stream[R]
 ```
-<div>&nbsp;</div>
-### Wildcards everywhere
+&nbsp;
+
+### Java: wildcards for use-site variance
+
 ```java
 <R> Stream<R> map(Function<? super T, ? extends R> mapper)
 ```
 
-&nbsp;
-### Over, and over
+So that callers of `map` may supply a "better" function:
 
-
-### And over
 </script></section>
 
 
