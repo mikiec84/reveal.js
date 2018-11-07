@@ -59,6 +59,27 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 
 
 <section> <!-- INTRO: WHY -->
+
+<section data-markdown><script type="text/template">
+# Scala
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Who?
+ - Martin Odersky & team at EPFL, 
+ - many OSS contributors!
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Why?
+### Java was stagnating
+<small>(Martin wrote generic javac, but generics got commented out for 1.4)</small>
+### Bring FP from academia to mainstream
+First big commercial adopter: Twitter in 2007
+<small>(Now many millions of LoC.)</small>
+### Less typing, more fun
+</script></section>
+
 <section data-markdown><script type="text/template">
 # Scala
 ## Unifies OO & FP
@@ -150,6 +171,14 @@ type   T   >: L <: U
 #### solves the problem today
 #### can understand tomorrow
 #### evolve later
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Pragmatic
+  - similar to Java (syntax, in details)
+  - target the JVM because of rich eco-system
+  - used a lot for scalable back-ends (akka/play) and data science (spark, flink, kafka,...)
+  - also compiles to JavaScript and native
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -350,16 +379,18 @@ Expands to: <small>(will explain why soon)</small>
   
 ```scala
 class Person(val name: String) {
-  override def equals(x: Any): Boolean = (this eq x) || (x match {
-    case x: Person => name == x.name
-    case _ => false
-  }
+  override def equals(x: Any): Boolean = (this eq x) || (
+    x match {
+      case x: Person => name == x.name
+      case _ => false
+    }
 }
 
 // companion object
 object Person {
   def apply(name: String): Person = new Person(name)
-  def unapply(x: Person): Option[String] = if (x == null) None else Some(x.name)
+  def unapply(x: Person): Option[String] = 
+    if (x == null) None else Some(x.name)
 }
 ```
 </script></section>
@@ -397,8 +428,8 @@ Person("everyone").`👋`
 
 <section data-markdown><script type="text/template">
 # Traits
-Much like Java 8 interfaces, but with fewer restrictions. 
-May declare same members as a class.
+ - Much like Java 8 interfaces, but with fewer restrictions. 
+ - May declare same members as a class.
 
 ## Linearisation
 Difference with class: don't statically know `super`
@@ -406,21 +437,46 @@ Difference with class: don't statically know `super`
 
 
 <section data-markdown><script type="text/template">
+# Trait Linearisation
+## Disclaimer: don't do this
+
+```scala
+trait Property[T] { 
+  def set(x: T): Unit = _x = x; def get: T = _x
+  private var _x: T = _ 
+}
+trait Logged[T] extends Property[T] { 
+  override def set(x: T) = { println(s"Setting to $x")
+    super.set(x)
+  } 
+}
+trait Encrypted[T] extends Property[T] { 
+  override def set(x: T) = super.set(encrypted(x))
+  def encrypted(x: T) = null.asInstanceOf[T] 
+}
+
+// the order of traits determines where `super` calls above g
+class Pass extends Logged[String] with Encrypted[String]
+class OOps extends Encrypted[String] with Logged[String]
+```
 
 </script></section>
 
 <section data-markdown><script type="text/template">
-# Syntactic sugar
-  - string interpolation
-  - `s"Hello $name"` is syntactic sugar
+# String Interpolation
+
+`s"Hello $name"` desugars to method calls:
 
 ```scala
 scala> val name = "a"
 name: String = a
 
 scala> s"Hello $name" // print
-   scala.StringContext.apply("Hello ", "").s(name) // : String
+scala.StringContext.apply("Hello ", "").s(name) // : String
 ```
+&nbsp;
+
+#### can provide your own `StringContext`, interpolators
 </script></section>
 
 
@@ -480,34 +536,72 @@ process(arg) // oh yeah
 ```
 </script></section>
 
-
 <section data-markdown><script type="text/template">
-  - tuples cf case classes
-  - unit
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-  - pattern matching / extractors
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-# Function as object
+# Functions
+  - type: `A => B`
+  - expression: `x => y`
+  - shorthands: `_ + 1` == `x => x + 1` == `x => x.1
   - `f(x)` = `f.apply(x)`
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+# Tuples
+Predefined case classes with numbered fields instead of named ones.
+
+```scala
+val pair = (1, 2) // short for Tuple2(1, 2)
+pair._1
+
+case class Pair[A, B](_1: A, _2: B)
+val myPair = Pair(1, 2)
+
+val Pair(x, y) = myPair
+```
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Tuple0?
+```scala
+val tuple0 = () // 🤔
+```
+
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Pattern matching
+  - Patterns: values with holes, `match` recovers holes' values
+  - Compiler warns if a match is incomplete (not exhaustive)
+  - Unhandled cases throw MatchError exception
+  - Respects OO encapsulation (abstractions are in control of how they are destructured: `unapply`)
+</script></section>
+
+<section data-markdown><script type="text/template">
+# Pattern matching
 
 </script></section>
 
 
 <section data-markdown><script type="text/template">
+  - `for` comprehension
+map/flatmap/ higher-order function
+</script></section>
 
+
+<section data-markdown><script type="text/template">
+# Member v parameter
+  higher-order method using pure OO
+
+</script></section>
+
+
+<section data-markdown><script type="text/template">
 ##  How I stopped worrying about variance
 ### "Just add +/- until it compiles."
 ### <div style="text-align: right; padding-right: 1em">-- me</div>
 </script></section>
 
 <section data-markdown><script type="text/template">
-
 ## We got y'all
 ### The type checker has your back.
 </script></section>
@@ -532,21 +626,12 @@ def map[R](mapper: T => R): Stream[R]
 ### And over
 </script></section>
 
-<section data-markdown><script type="text/template">
-  - `for` comprehension
-</script></section>
 
 
 <section data-markdown><script type="text/template">
 # Implicits
 </script></section>
 
-
-<section data-markdown><script type="text/template">
-# Member v parameter
-  higher-order method using pure OO
-
-</script></section>
 
 <section data-markdown><script type="text/template">
   type constructor polymorphism
