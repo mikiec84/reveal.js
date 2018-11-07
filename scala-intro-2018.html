@@ -572,27 +572,61 @@ val tuple0 = () // 🤔
 # Pattern matching
   - Patterns: values with holes, `match` recovers holes' values
   - Compiler warns if a match is incomplete (not exhaustive)
-  - Unhandled cases throw MatchError exception
+  - Unhandled cases throw `MatchError` exception
   - Respects OO encapsulation (abstractions are in control of how they are destructured: `unapply`)
 </script></section>
 
 <section data-markdown><script type="text/template">
-# Pattern matching
-
+# Pattern matching example
+```scala
+def reverse[T](xs: List[T]): List[T] = {
+  def loop(xs: List[T], acc: List[T]): List[T] = xs match {
+    case Nil => acc
+    case x :: xs => loop(xs, x :: acc)
+  }
+  loop(xs, Nil)
+}
+```
 </script></section>
 
 
 <section data-markdown><script type="text/template">
-  - `for` comprehension
-map/flatmap/ higher-order function
+# `for` comprehension
+Another example of syntactic sugar. Expands into method calls (map/flatMap/withFilter/...).
+
+```scala
+for (x <- List(1,2,3,4) ; if x % 2 == 0) yield x // print
+```
+
+Using `filter` (higher-order method)
+
+```
+List(1,2,3,4).filter(_ % 2 == 0)
+```
+
 </script></section>
 
 
+
 <section data-markdown><script type="text/template">
+# Implicits
+
+TODO
+
+</script></section>
+
+
+<!-- <section data-markdown><script type="text/template">
 # Member v parameter
   higher-order method using pure OO
 
 </script></section>
+<section data-markdown><script type="text/template">
+  type constructor polymorphism
+  
+  
+</script></section>
+ -->
 
 
 <section data-markdown><script type="text/template">
@@ -628,16 +662,6 @@ def map[R](mapper: T => R): Stream[R]
 
 
 
-<section data-markdown><script type="text/template">
-# Implicits
-</script></section>
-
-
-<section data-markdown><script type="text/template">
-  type constructor polymorphism
-  
-  
-</script></section>
 
 
 
