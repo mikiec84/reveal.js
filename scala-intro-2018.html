@@ -71,16 +71,7 @@ phantomjs plugin/print-pdf/print-pdf.js "file:///Users/adriaan/git/reveal.js/sca
 ## "Scala-ble"
   - FP & OOP
   - Safety in types & Convenience of inference
-  - From oneliner to millions
-</slide>
-
-<slide>
-## Types come second
-### because optional
-  - public types are documentation
-  - (↔ codegen: maintenance liability)
-  - best types are unseen
-    - e.g., definition-site variance
+  - Oneliner → 1MLoC
 </slide>
 
 <slide>
@@ -101,10 +92,12 @@ type   T   >: L <: U
 </slide>
 
 <slide>
-## No limits / exceptions
-  - Arbitrary nesting
-  - Higher-order (Methods and Types)
-  - Operator names (Primitive types are types too)
+## Types come second
+### because optional
+  - public types are documentation
+  - (↔ codegen: maintenance liability)
+  - best types are unseen
+    - e.g., definition-site variance
 </slide>
 
 <slide>
@@ -113,6 +106,14 @@ type   T   >: L <: U
 ###  value = object
 ###  operation = method call
 </slide>
+
+<slide>
+## No limits / exceptions
+  - Arbitrary nesting
+  - Higher-order (Methods and Types)
+  - Operator names (Primitive types are types too)
+</slide>
+
 
 <slide>
 ### Everything is an expression
@@ -133,17 +134,19 @@ type   T   >: L <: U
   - `for` comprehension
   - string interpolation
   - pattern matching / extractors
-  - `object` member replaces `static`
 </slide>
 
 <slide>
 ### Regularity begets flexibility
 #### Our flexibility is your flexibility.
+
+(Every operation == method: OO principles apply uniformly to language.)
 </slide>
 
 <slide>
 ### Flexibility requires discipline
-The language is not opinionated, but we should be.
+
+The language is not opinionated, but programmer should be.
 </slide>
 
 <slide>
@@ -166,8 +169,10 @@ The language is not opinionated, but we should be.
 ## Aid
 ### static types: refactor with confidence
 type inference to refactor with ease
+
 ### FP: small abstractions in isolation
 composed into different solutions
+
 ### abstraction: capture essence
 not obscure it
 <!-- balance abstraction cost versus cost of repeating yourself -->
@@ -177,8 +182,10 @@ not obscure it
 ## Shield from...
 ### ... implementation details: encapsulate!
 OO's forte
+
 ### ... time: immutable
 mutability exposes order of execution
+
 <!-- (side effects ephemeral, values are real) -->
 ### ... space: asynchrony
 synchrony exposes distance/failure
@@ -198,7 +205,7 @@ synchrony exposes distance/failure
 
 ```
 class Person(val name: String) {
-	def `👋` = println(s"Hi, $name!")
+  def `👋` = println(s"Hi, $name!")
   override def toString = s"Person($name)"
 }
 
@@ -208,18 +215,60 @@ object a extends Person("Adriaan")
 
 <slide>
 # Class
-  - primary constructor (define & init members)
+  - (primary) constructor (args to init members)
   - extends one other class, multiple traits
-  - may be abstract / final / sealed
-  - has members
+  - may be `abstract` / `final` / `sealed`
+  - declares members
+  - contains expressions (often code smell)
+</slide>
 
+<slide>
+# Members
+  - type: `class` / `trait` / `type`
+  - value: `def` / `val` / `var` / `object`
+  - syntax: `*keyword* *signature* [= *rhs*]`
 </slide>
 
 <slide>
 # Member
-  - type: class/trait/type
-  - value: def/val/var/object
-  - syntax: *keyword* *signature* [= *rhs*]
+## `def`: method
+  - public by default
+  - type params: `def id[T](x: T): T = x`
+</slide>
+
+<slide>
+# Member
+## `def`: method
+  - dependent types: `def idReally(x: AnyRef): x.type = x`
+  - `p.type` qualifies terms statically known to be `eq p`
+</slide>
+
+<slide>
+# Member
+## Access
+  - Over-designed feature of Scala.
+  - (Does not map well to JVM.)
+  - Probably best to stick to `private`,
+  - maybe qualified as: `private[this]`, `private[somePkg]`
+  - `protected`: should we really privilege subclasses?
+</slide>
+
+<slide>
+# Member
+## `def`
+  - multiple argument lists: 
+
+```
+// repl time!
+def repeat(n: Int)(s: String): String = s * n
+val thrice = repeat(3)
+```
+  
+</slide>
+
+<slide>
+# Member
+## `def`
 </slide>
 
 <slide>
@@ -249,6 +298,8 @@ difference with class: don't statically know super
 case class Person(name: String)
 ```
 
+auto-generate toString, equals, hashCode
+
 # Object
   - single instance
   - `object` member replaces `static`
@@ -256,7 +307,7 @@ case class Person(name: String)
 
 <slide>
   - string interpolation
-	- `s"Hello $name"` is syntactic sugar
+  - `s"Hello $name"` is syntactic sugar
 
 ```
 scala> val name = "a"
@@ -265,8 +316,8 @@ name: String = a
 scala> s"Hello $name" // print
    scala.StringContext.apply("Hello ", "").s(name) // : String
 ```
-	
 </slide>
+
 
 </section> <!-- /OO -->
 
@@ -356,7 +407,7 @@ def map[R](mapper: T => R): Stream[R]
 </slide>
 
 <slide>
-	higher-order method using pure OO
+  higher-order method using pure OO
 </slide>
 
 <slide>
