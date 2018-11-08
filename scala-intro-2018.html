@@ -544,9 +544,10 @@ process(arg) // oh yeah
   - type: `(A1, …, An) => Result`
   - expression: `(x1, …, xn) => y`
   - shorthand / syntactic sugar: 
-    - `(A1, …, An) => Result` = `FunctionN[A1,…, An, Result]`
-    - `f(x)` = `f.apply(x)`
-    - `x => x.+(1)` ☞ `x => x + 1` ☞ `_ + 1` 
+    - `(A1, …, An) => Result` <span class="red">*expands to*</span>
+      `FunctionN[A1,…, An, Result]`
+    - `f(x)` <span class="red">☞</span> `f.apply(x)`
+    - `x => x.+(1)` <span class="red">☞</span> `x => x + 1` <span class="red">☞</span> `_ + 1` 
 </script></section>
 
 <section data-markdown><script type="text/template">
