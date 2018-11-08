@@ -105,9 +105,9 @@ First big commercial adopter: Twitter in 2007
 ```scala
 val    x              : T      = ???
 def    m [Ti] (ai: Ui): U      = ???
-class  C [Ti] (ai: Ui) extends P(aj) { ... }
-object o               extends C(ai) { ... }
-type   T                       = ...
+class  C [Ti] (ai: Ui) extends P(aj) { … }
+object o               extends C(ai) { … }
+type   T                       = …
 type   T   >: L <: U
 ```
 </script></section>
@@ -177,7 +177,7 @@ type   T   >: L <: U
 # Pragmatic
   - similar to Java (syntax, in details)
   - target the JVM because of rich eco-system
-  - used a lot for scalable back-ends (akka/play) and data science (spark, flink, kafka,...)
+  - used a lot for scalable back-ends (akka/play) and data science (spark, flink, kafka,…)
   - also compiles to JavaScript and native
 </script></section>
 
@@ -205,19 +205,19 @@ not obscure it
 </script></section>
 
 <section data-markdown><script type="text/template">
-## Shield from...
-### ... implementation details: encapsulate!
+## Shield from…
+### … implementation details: encapsulate!
 OO's forte
 
 </script></section><section data-markdown><script type="text/template">
 
-### ... time: immutable
+### … time: immutable
 mutability exposes order of execution
 
 </script></section><section data-markdown><script type="text/template">
   
 <!-- (side effects ephemeral, values are real) -->
-### ... space: asynchrony
+### … space: asynchrony
 synchrony exposes distance/failure
 </script></section>
 
@@ -228,7 +228,7 @@ synchrony exposes distance/failure
 
 <section data-markdown><script type="text/template">
 # OO
-## Programming with objects
+## Programming with objects and methods
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -455,7 +455,6 @@ trait Encrypted[T] extends Property[T] {
   override def set(x: T) = super.set(encrypted(x))
   def encrypted(x: T) = null.asInstanceOf[T] 
 }
-
 // the order of traits determines where `super` calls above g
 class Pass extends Logged[String] with Encrypted[String]
 class OOps extends Encrypted[String] with Logged[String]
@@ -503,9 +502,11 @@ Easily add new operations
 
 <section data-markdown><script type="text/template">
 # Simplicity
+  - expressions (de)construct values (~~mutate data~~)
   - understand function purely in terms of input
-  - compose functions safely into program
-  - (de)construct values (~~mutate data~~)
+  - compose functions safely into program 
+    - (higher-order functions / combinators)
+    - type system tracks "flow of data"
 </script></section>
 
 <section data-markdown><script type="text/template">
@@ -540,24 +541,26 @@ process(arg) // oh yeah
 
 <section data-markdown><script type="text/template">
 # So, functions
-  - type: `(A1, ..., AN) => Result`
-  - expression: `(x1, ..., xn) => y`
-  - shorthand: 
+  - type: `(A1, …, An) => Result`
+  - expression: `(x1, …, xn) => y`
+  - shorthand / syntactic sugar: 
+    - `(A1, …, An) => Result` = `FunctionN[A1,…, An, Result]`
     - `f(x)` = `f.apply(x)`
-    - `_ + 1` == `x => x + 1` == `x => x.+(1)`
+    - `x => x.+(1)` ☞ `x => x + 1` ☞ `_ + 1` 
 </script></section>
 
 <section data-markdown><script type="text/template">
 # Function = object
   - predefined `FunctionN` classes (`N=1..22`)
-  - or your own: `trait F { def apply(x: Int): Int }`
+  - or your own: 
+    - `trait F { def apply(x: Int): Int }`
   - or: Java 8's Single Abstract Method representation
 </script></section>
 
 <section data-markdown><script type="text/template">
 # Philosophical interlude
   - FP
-    - abstract using parameter: `x => ...
+    - abstract using parameter: `x => …
     - concretise with function application: `f(a)`
   - OO
     - abstract member**s**: 
@@ -600,9 +603,10 @@ val tuple0 = () // 🤔
 <section data-markdown><script type="text/template">
 # Example: pattern matching & recursion
 ```scala
+// What does signature promise?
 def reverse[T](xs: List[T]): List[T] = {
   def loop(xs: List[T], acc: List[T]): List[T] = xs match {
-    case Nil => acc
+    case Nil => acc // what if we forgot about this one?
     case x :: xs => loop(xs, x :: acc)
   }
   loop(xs, Nil)
@@ -613,7 +617,7 @@ def reverse[T](xs: List[T]): List[T] = {
 
 <section data-markdown><script type="text/template">
 # `for` comprehension
-Another example of syntactic sugar. Expands into method calls (map/flatMap/withFilter/...).
+Another example of syntactic sugar. Expands into method calls (map/flatMap/withFilter/…).
 
 ```scala
 for (x <- List(1,2,3,4) ; if x % 2 == 0) yield x // print
@@ -637,10 +641,10 @@ List(1,2,3,4).filter(_ % 2 == 0)
 &nbsp;
 
 ```scala
-def foo(...)(implicit logger: Logger) = ???
+def foo(…)(implicit logger: Logger) = ???
 
 implicit val myLogger: Logger = new MyLogger
-foo(...) // no need to specify logger arg
+foo(…) // no need to specify logger arg
 ```
 
 </script></section>
